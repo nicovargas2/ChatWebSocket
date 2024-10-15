@@ -1,0 +1,11 @@
+<div>
+    <h1><u>Real Time Products</u></h1>
+</div>
+
+<script src="/socket.io/socket.io.js"></script>
+<script>
+    const socketClient = io();
+    socketClient.on('new_product_arrived', data => {
+        console.log(data)
+    })
+</script>

@@ -1,0 +1,17 @@
+<div>
+    <h1>Coder chat!</h1>
+    <h2>Ejemplo de socket.io</h2>
+</div>
+
+<script src="/socket.io/socket.io.js"></script>
+<script type="module">
+    const url = '';
+    const options = {};
+
+    const socketClient = io(url, options);
+
+    socketClient.emit('init_message', 'hola a todos! Yo soy el leon');
+    socketClient.on('welcome', data => {
+        console.log(data)
+    })
+</script>
