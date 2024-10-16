@@ -8,12 +8,12 @@ router.get('/chat', (req, res) => {
     res.status(200).render('chat', data);
 })
 
-router.get('/realTimeProducts', async (req, res) => {
+router.get('/home', async (req, res) => {
     let data = {
         fName: "Hilda",
         lName: "Roldan"
     };
-    res.status(200).render('realTimeProducts', data);
+    res.status(200).render('home', data);
 })
 
 export default router;
