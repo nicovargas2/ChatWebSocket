@@ -22,24 +22,21 @@ socketServer.on('connection', socket => {
     socket.on('init_message', data => {
         console.log(data);
         console.log("Rugio la bestia en medio de la avenida!\n\n");
+    });
+
+    socket.on('new_own_msg', data => {
+        //console.log(data)
+        // esto hace que el server mande el mensaje recibido a TODOS los clientes conectados, a todos
+        socketServer.emit('new_general_msg', data) //es tipo broadcast
+
     })
 
     socket.emit('welcome', 'Bienvenido cliente nuevo!')
 })
 
-
-//el next() es propio de express, ya se encarga de inyectarlo.
-const midd1 = (req, res, next) => {
-    console.log("se recibio una solicitud");
-    //y despues segui con la cadena, con lo que venga despues.
-    next();
-}
-
-//ejecuta estos middlewares primero.
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-//activacion del motor handlebars
 app.engine('handlebars', handlebars.engine());
 app.set('views', `${config.DIRNAME}/views`);
 app.set('view engine', 'handlebars');
