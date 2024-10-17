@@ -34,6 +34,13 @@ const initSocket = (httpServer) => {
 
         })
 
+        socket.on('clearHistory', () => {
+            messages.forEach(element => {
+                messages.pop(element)
+            });
+            socketServer.emit('clearList', {});
+        });
+
         socket.on('disconnect', reason => {
             console.log(reason);
         });

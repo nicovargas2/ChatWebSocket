@@ -7,8 +7,10 @@
     <p id="msgList" style="padding: 0; margin: 0;"></p>
 </div>
 
-<div style="margin-left: 1em ;margin-top: 2em;">
-    <input class="form-control" type="text" name="msg" id="msg" placeholder="Tipear mensaje" style="width: 360px;">
+<div style="margin: 2em; height: auto; width: auto">
+    <input class="form-control" type="text" name="msg" id="msg" placeholder="Tipear mensaje" style="width: 200px;">
+    <br />
+    <input type="button" name="resetHistory" id="resetHistory" value="Reset history" style="width: 160px;">
 </div>
 {{!--
 <script src="/socket.io/socket.io.js"></script> --}}
@@ -23,6 +25,7 @@
 
     const msgField = document.getElementById('msg');
     const msgList = document.getElementById('msgList');
+    const resetHistory = document.getElementById('resetHistory');
 
     const askName = async () => {
         const result = await Swal.fire({
@@ -56,6 +59,10 @@
         }
     });
 
+    resetHistory.addEventListener('click', () => {
+        socketClient.emit('clearHistory', {});
+    })
+
     //Flujo principals
     const socketClient = io(url, options);
 
@@ -82,6 +89,10 @@
     // cliente un nuevo mensaje
     socketClient.on('new_general_msg', data => {
         msgList.innerHTML += `<br /><strong>[${data.user}</strong>]: ${data.msg}`;
+    });
+
+    socketClient.on('clearList', () => {
+        msgList.innerHTML = ' ';
     });
 
     // new_user lo genera el servidor cuando recibe datos de un usuario nuevo conectado
