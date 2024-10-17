@@ -5,11 +5,16 @@ import handlebars from 'express-handlebars';
 import initSocket from './socket.js';
 
 const app = express()
+const port = process.env.PORT || 8080;
+
+app.get('/', (req, res) => {
+    res.status(200).send('Hello World!')
+})
 
 //Este es mi servidor http, pero lo voy a cargar a una 
 //constante para poder trabajarlo con websockets
-const httpServer = app.listen(config.PORT, () => {
-    console.log(`Server running using port: ${config.PORT}`)
+const httpServer = app.listen(port, () => {
+    console.log(`Server running using port: ${port}`)
 
     const socketServer = initSocket(httpServer);
     app.set('socketServer', socketServer);
